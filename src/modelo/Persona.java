@@ -9,8 +9,19 @@
 
 package modelo;
 
-abstract class Persona {
+
+public class Persona {
     private String nombres, apellidos, direccion, telefono, fecha_nacimiento;
+
+    public Persona() {}
+
+    public Persona(String nombres, String apellidos, String direccion, String telefono, String fecha_nacimiento) {
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.fecha_nacimiento = fecha_nacimiento;
+    }
 
     public String getNombres() {
         return nombres;
@@ -52,10 +63,7 @@ abstract class Persona {
         this.fecha_nacimiento = fecha_nacimiento;
     }
     
-    protected void agregar() {}
-    
-    protected void modificar() {}
-    
-    protected void eliminar() {}
-    
+    protected void agregar() {
+        
+    }
 }

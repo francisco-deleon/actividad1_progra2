@@ -11,17 +11,18 @@ package vista;
 
 import modelo.Cliente;
 
-/**
- *
- * @author Francisco Natareno
- */
 public class frm_cliente extends javax.swing.JFrame {
+    
+    // Declaracion global de un objeto de tipo "Cliente"
+    Cliente obj_cliente;
 
     /**
      * Creates new form frm_cliente
      */
     public frm_cliente() {
         initComponents();
+        // Instanciar el objeto
+        obj_cliente = new Cliente();
     }
 
     /**
@@ -46,6 +47,7 @@ public class frm_cliente extends javax.swing.JFrame {
         lbl_fn = new javax.swing.JLabel();
         txt_fn = new javax.swing.JTextField();
         btn_aceptar = new javax.swing.JButton();
+        btn_modificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,6 +89,14 @@ public class frm_cliente extends javax.swing.JFrame {
             }
         });
 
+        btn_modificar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btn_modificar.setText("Modificar");
+        btn_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,13 +113,17 @@ public class frm_cliente extends javax.swing.JFrame {
                             .addComponent(lbl_telefono)
                             .addComponent(lbl_fn))
                         .addGap(52, 52, 52)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_nombres)
-                            .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_apellidos)
-                            .addComponent(txt_direccion)
-                            .addComponent(txt_telefono)
-                            .addComponent(txt_fn, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txt_nombres)
+                                .addComponent(txt_apellidos)
+                                .addComponent(txt_direccion)
+                                .addComponent(txt_telefono)
+                                .addComponent(txt_fn, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(btn_modificar))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(211, 211, 211)
                         .addComponent(btn_aceptar)))
@@ -121,7 +135,8 @@ public class frm_cliente extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_nit)
-                    .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_modificar))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_nombres)
@@ -144,23 +159,31 @@ public class frm_cliente extends javax.swing.JFrame {
                     .addComponent(txt_fn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45)
                 .addComponent(btn_aceptar)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aceptarActionPerformed
-        Cliente obj_cliente = new Cliente();
-        obj_cliente.setNit(this.txt_nit.getText());
-        obj_cliente.setNombres(this.txt_apellidos.getText());
-        obj_cliente.setApellidos(this.txt_apellidos.getText());
-        obj_cliente.setDireccion(this.txt_direccion.getText());
-        obj_cliente.setTelefono(this.txt_telefono.getText());
-        obj_cliente.setFecha_nacimiento(this.txt_fn.getText());
+        // Enviar parametros del Constructor (valores de los elementos en el formulario)
+        obj_cliente = new Cliente(
+                txt_nit.getText(),
+                txt_nombres.getText(),
+                txt_apellidos.getText(),
+                txt_direccion.getText(),
+                txt_telefono.getText(),
+                txt_fn.getText()
+        );
         
         obj_cliente.agregar();
     }//GEN-LAST:event_btn_aceptarActionPerformed
+
+    private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
+        // Invocar el objeto desde el evento del boton "Modificar"
+        obj_cliente.setNit(txt_nit.getText());
+        obj_cliente.agregar();
+    }//GEN-LAST:event_btn_modificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,6 +222,7 @@ public class frm_cliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_aceptar;
+    private javax.swing.JButton btn_modificar;
     private javax.swing.JLabel lbl_apellidos;
     private javax.swing.JLabel lbl_direccion;
     private javax.swing.JLabel lbl_fn;
